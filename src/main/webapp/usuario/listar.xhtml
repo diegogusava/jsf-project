@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="/resources/templates/template.xhtml">
+
+    <ui:define name="main">
+
+        <h:form id="form-table-usuarios" >
+
+            <h:outputText id="total" value="#{usuarioList.usuarios.size()}"/>
+
+            <rich:dataTable id="table" value="#{usuarioList.usuarios}" var="usuario" rows="15">
+
+                <h:column>
+                    <f:facet name="header">
+                        Id
+                    </f:facet>
+                    <h:outputText value="#{usuario.id}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Login
+                    </f:facet>
+                    <h:link value="#{usuario.login}" outcome="pretty:usuario-editar">
+                        <f:param name="id" value="#{usuario.id}"/>
+                    </h:link>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Nome
+                    </f:facet>
+                    <h:outputText value="#{usuario.nome}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Perfil
+                    </f:facet>
+                    <h:outputText value="#{usuario.perfil.descricao}"/>
+                </h:column>
+
+                <h:column>
+
+                    <f:facet name="header">
+                        Excluir
+                    </f:facet>
+
+                    <h:selectBooleanCheckbox value="#{usuarioList.itens[usuario]}"/>
+
+                </h:column>
+
+                <f:facet name="footer">
+                    <rich:dataScroller for="table"/>
+                </f:facet>
+
+            </rich:dataTable>
+
+
+            <h:commandButton value="Excluir" action="#{usuarioList.prepararParaRemover}">
+                <a4j:ajax execute="@form" oncomplete="#{rich:component('popup')}.show()"/>
+            </h:commandButton>
+
+            <h:commandButton value="Criar" action="pretty:usuario-criar"/>
+
+            <a4j:commandButton render="@form" value="Refresh"/>
+
+        </h:form>
+
+
+
+        <h:form>
+        <rich:popupPanel id="popup" modal="true" autosized="true" resizeable="false">
+
+            <f:facet name="header">
+                <h:outputText value="Excluir registros"/>
+            </f:facet>
+            <f:facet name="controls">
+                <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">
+                    X
+                </h:outputLink>
+            </f:facet>
+
+            <p>Você deseja realmente excluir estes registros?</p>
+
+            <h:commandButton value="Sim" action="#{usuarioList.remover()}">
+                <a4j:ajax oncomplete="#{rich:component('popup')}.hide()" render="form-table-usuarios"/>
+            </h:commandButton>
+            <h:commandButton value="Não">
+                <a4j:ajax oncomplete="#{rich:component('popup')}.hide()"/>
+            </h:commandButton>
+
+        </rich:popupPanel>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

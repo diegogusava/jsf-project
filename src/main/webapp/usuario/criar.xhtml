@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                template="/resources/templates/template.xhtml">
+
+    <ui:define name="main">
+
+        <h:form>
+            <ui:decorate template="/resources/templates/edit.xhtml">
+                <ui:define name="label">
+                    <h:outputLabel value="Login"/>
+                </ui:define>
+                <h:inputText value="#{usuarioManager.usuario.login}">
+                    <rich:validator />
+                </h:inputText>
+            </ui:decorate>
+
+            <ui:decorate template="/resources/templates/edit.xhtml">
+                <ui:define name="label">
+                    <h:outputLabel value="Senha"/>
+                </ui:define>
+                <h:inputText value="#{usuarioManager.usuario.password}">
+                    <rich:validator />
+                </h:inputText>
+            </ui:decorate>
+
+            <ui:decorate template="/resources/templates/edit.xhtml">
+                <ui:define name="label">
+                    <h:outputLabel value="Perfil"/>
+                </ui:define>
+                <h:selectOneMenu value="#{usuarioManager.usuario.perfil}" converter="omnifaces.SelectItemsConverter">
+                    <rich:validator />
+                    <f:selectItems value="#{usuarioManager.listarPerfis()}" var="perfil" itemValue="#{perfil}" itemLabel="#{perfil.descricao}"/>
+                </h:selectOneMenu>
+            </ui:decorate>
+
+
+            <h:commandButton action="#{usuarioManager.salvar}" value="Salvar"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
