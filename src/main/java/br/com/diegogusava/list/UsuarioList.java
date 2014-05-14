@@ -3,20 +3,18 @@ package br.com.diegogusava.list;
 import br.com.diegogusava.model.Usuario;
 import br.com.diegogusava.service.UsuarioService;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Messages;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ManagedBean
+@Named
 @ViewScoped
 @URLMapping(id = "usuario", pattern = "/usuarios", viewId = "/faces/usuario/listar.xhtml")
 public class UsuarioList {

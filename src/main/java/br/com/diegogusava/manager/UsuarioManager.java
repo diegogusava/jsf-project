@@ -22,8 +22,8 @@ import java.util.Map;
 
 
 @URLMappings(mappings = {
-        @URLMapping(id = "usuario-criar", pattern = "/usuarios/criar", viewId = "/faces/usuario/criar.xhtml"),
-        @URLMapping(id = "usuario-editar", pattern = "/usuarios/editar/#{id : usuarioManager.usuarioId}", viewId = "/faces/usuario/criar.xhtml")
+        @URLMapping(id = "usuario-criar", pattern = "/usuarios/criar", viewId = "/faces/usuario/editar.xhtml"),
+        @URLMapping(id = "usuario-editar", pattern = "/usuarios/editar/#{id : usuarioManager.usuarioId}", viewId = "/faces/usuario/editar.xhtml")
 })
 @Named
 @ConversationScoped
@@ -42,8 +42,6 @@ public class UsuarioManager implements Serializable {
 
     private Long usuarioId = 0l;
 
-
-
     @URLAction(mappingId = "usuario-criar", onPostback = false)
     public void criar() {
         conversation.begin();
@@ -61,8 +59,6 @@ public class UsuarioManager implements Serializable {
         conversation.end();
         return "pretty:usuario";
     }
-
-
 
     public List<Perfil> listarPerfis(){
         return perfilService.listarTodos();
