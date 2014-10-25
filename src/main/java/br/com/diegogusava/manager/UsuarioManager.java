@@ -7,18 +7,14 @@ import br.com.diegogusava.service.UsuarioService;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
-import org.omnifaces.util.Messages;
 
-import javax.ejb.Stateful;
+import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @URLMappings(mappings = {
@@ -32,7 +28,7 @@ public class UsuarioManager implements Serializable {
     @Inject
     private UsuarioService usuarioService;
 
-    @Inject
+    @EJB
     private PerfilService perfilService;
 
     @Inject

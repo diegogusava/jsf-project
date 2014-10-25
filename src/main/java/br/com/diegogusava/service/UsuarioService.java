@@ -26,7 +26,7 @@ public class UsuarioService implements Serializable {
     }
 
     public void remover(Usuario usuario) {
-        entityManager.remove(usuario);
+        entityManager.remove(entityManager.merge(usuario));
     }
 
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

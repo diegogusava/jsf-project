@@ -11,16 +11,17 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class PerfilService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Perfil> listarTodos() {
         return entityManager.createNamedQuery("Perfil.listarTodos", Perfil.class).getResultList();
     }
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Optional<Perfil> buscarPorId(Long id) {
         List<Perfil> lista = entityManager.createNamedQuery("Perfil.buscarPorId", Perfil.class).setParameter("id", id).getResultList();
         if (lista.isEmpty()) {

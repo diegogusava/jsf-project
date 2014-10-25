@@ -18,7 +18,6 @@ import java.util.Map;
 
 @Named
 @ViewScoped
-@Stateful
 @URLMapping(id = "usuario", pattern = "/usuarios", viewId = "/faces/usuario/listar.xhtml")
 public class UsuarioList implements Serializable {
 
