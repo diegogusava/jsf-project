@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <composite:interface>
+        <composite:attribute name="email" required="true"/>
+        <composite:attribute name="senha" required="true"/>
+        <composite:attribute name="action" targets="btnLogin" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+
+        <div class="col-sm-3">
+            <div>
+                <h:outputText value="E-mail"/>
+                <h:inputText id="txtEmail" value="#{cc.attrs.email}"/>
+            </div>
+
+            <div>
+                <h:outputText value="Senha"/>
+                <h:inputText id="txtSenha" value="#{cc.attrs.senha}"/>
+            </div>
+
+            <h:commandButton id="btnLogin" action="#{cc.attrs.actionMethod}" value="Login"/>
+        </div>
+
+    </composite:implementation>
+
+
+</html>
+

@@ -3,22 +3,20 @@ package br.com.diegogusava.service;
 import br.com.diegogusava.model.Perfil;
 import com.google.common.base.Optional;
 
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import java.util.List;
 
-@Stateful
+@Stateless
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class PerfilService {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager entityManager;
 
-
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Perfil> listarTodos() {
         return entityManager.createNamedQuery("Perfil.listarTodos", Perfil.class).getResultList();
     }

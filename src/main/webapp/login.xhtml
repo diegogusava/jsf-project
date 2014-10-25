@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                template="/resources/templates/template.xhtml"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <ui:define name="main">
+
+        <h:form prependId="false">
+                <util:login senha="#{loginManager.senha}"
+                            email="#{loginManager.email}"
+                            action="#{loginManager.action()}" />
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

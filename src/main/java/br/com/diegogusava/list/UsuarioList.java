@@ -8,16 +8,19 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Messages;
 
+import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Named
 @ViewScoped
+@Stateful
 @URLMapping(id = "usuario", pattern = "/usuarios", viewId = "/faces/usuario/listar.xhtml")
-public class UsuarioList {
+public class UsuarioList implements Serializable {
 
     private Long usuarioId;
 
