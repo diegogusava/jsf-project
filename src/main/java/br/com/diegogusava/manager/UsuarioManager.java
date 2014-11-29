@@ -7,10 +7,8 @@ import br.com.diegogusava.service.UsuarioService;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
+import org.omnifaces.cdi.ViewScoped;
 
-import javax.ejb.EJB;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -22,17 +20,14 @@ import java.util.List;
         @URLMapping(id = "usuario-editar", pattern = "/usuarios/editar/#{id : usuarioManager.usuarioId}", viewId = "/faces/usuario/editar.xhtml")
 })
 @Named
-@ConversationScoped
+@ViewScoped
 public class UsuarioManager implements Serializable {
 
     @Inject
     private UsuarioService usuarioService;
 
-    @EJB
-    private PerfilService perfilService;
-
     @Inject
-    private Conversation conversation;
+    private PerfilService perfilService;
 
     private Usuario usuario;
 
@@ -40,19 +35,16 @@ public class UsuarioManager implements Serializable {
 
     @URLAction(mappingId = "usuario-criar", onPostback = false)
     public void criar() {
-        conversation.begin();
         usuario = new Usuario();
     }
 
     @URLAction(mappingId = "usuario-editar", onPostback = false)
     public void editar() {
-        conversation.begin();
         usuario = usuarioService.buscarPorId(usuarioId).or(new Usuario());
     }
 
     public String salvar() {
         usuarioService.salvar(usuario);
-        conversation.end();
         return "pretty:usuario";
     }
 

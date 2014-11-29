@@ -8,20 +8,18 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 import java.util.List;
 
-@Stateless
-public class PerfilService {
+public class PerfilService implements Serializable {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Perfil> listarTodos() {
         return entityManager.createNamedQuery("Perfil.listarTodos", Perfil.class).getResultList();
     }
 
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Optional<Perfil> buscarPorId(Long id) {
         List<Perfil> lista = entityManager.createNamedQuery("Perfil.buscarPorId", Perfil.class).setParameter("id", id).getResultList();
         if (lista.isEmpty()) {

@@ -9,8 +9,13 @@ import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Messages;
 
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +24,15 @@ import java.util.Map;
 @Named
 @ViewScoped
 @URLMapping(id = "usuario", pattern = "/usuarios", viewId = "/faces/usuario/listar.xhtml")
+@Stateful
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class UsuarioList implements Serializable {
+
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
+
+    @Inject
+    private UsuarioService usuarioService;
 
     private Long usuarioId;
 
@@ -27,16 +40,13 @@ public class UsuarioList implements Serializable {
 
     private List<Usuario> usuarios;
 
-    @Inject
-    private UsuarioService usuarioService;
-
     private Map<Usuario, Boolean> itens = new HashMap<>();
 
     private Boolean existeSelecionado;
 
     @URLAction(mappingId = "usuario", onPostback = false)
     public void init(){
-        this.usuarios = usuarioService.listarTodos();
+        this.usuarios = entityManager.createNamedQuery("Usuario.listarTodos", Usuario.class).getResultList();
     }
 
     public String getLogin() {
