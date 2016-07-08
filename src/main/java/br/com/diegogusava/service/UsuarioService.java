@@ -1,46 +1,32 @@
 package br.com.diegogusava.service;
 
 import br.com.diegogusava.model.Usuario;
-import com.google.common.base.Optional;
+import br.com.diegogusava.repository.UsuarioRespository;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
-@Stateless
 public class UsuarioService implements Serializable {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Inject
+    private UsuarioRespository respository;
 
     public void salvar(Usuario usuario) {
-        if (usuario.getId() == null) {
-            entityManager.persist(usuario);
-        } else {
-            entityManager.merge(usuario);
-        }
+        respository.salvar(usuario);
     }
 
     public void remover(Usuario usuario) {
-        entityManager.remove(entityManager.merge(usuario));
+        respository.remover(usuario);
     }
 
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Optional<Usuario> buscarPorId(Long id) {
-        List<Usuario> resultList = entityManager.createNamedQuery("Usuario.buscarPorId", Usuario.class).setParameter("usuarioId", id).getResultList();
-        if (resultList.isEmpty()) {
-            return Optional.absent();
-        }
-        return Optional.of(resultList.get(0));
+        return respository.buscarPorId(id);
     }
 
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Usuario> listarTodos() {
-        return entityManager.createNamedQuery("Usuario.listarTodos", Usuario.class).getResultList();
+        return respository.listarTodos();
     }
 
 }

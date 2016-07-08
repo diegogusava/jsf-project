@@ -18,9 +18,6 @@ public class Perfil implements Serializable {
 
     private String descricao;
 
-    @OneToMany(mappedBy = "perfil")
-    private List<Papel> papeis;
-
     public Perfil() {
     }
 
@@ -42,14 +39,6 @@ public class Perfil implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public List<Papel> getPapeis() {
-        return papeis;
-    }
-
-    public void setPapeis(List<Papel> papeis) {
-        this.papeis = papeis;
     }
 
     @Override

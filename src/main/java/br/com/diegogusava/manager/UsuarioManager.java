@@ -40,7 +40,7 @@ public class UsuarioManager implements Serializable {
 
     @URLAction(mappingId = "usuario-editar", onPostback = false)
     public void editar() {
-        usuario = usuarioService.buscarPorId(usuarioId).or(new Usuario());
+        usuario = usuarioService.buscarPorId(usuarioId).orElse(new Usuario());
     }
 
     public String salvar() {

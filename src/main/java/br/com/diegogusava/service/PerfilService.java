@@ -1,33 +1,24 @@
 package br.com.diegogusava.service;
 
 import br.com.diegogusava.model.Perfil;
-import com.google.common.base.Optional;
+import br.com.diegogusava.repository.PerfilRepository;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public class PerfilService implements Serializable {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Inject
+    private PerfilRepository repository;
 
     public List<Perfil> listarTodos() {
-        return entityManager.createNamedQuery("Perfil.listarTodos", Perfil.class).getResultList();
+        return repository.listarTodos();
     }
 
     public Optional<Perfil> buscarPorId(Long id) {
-        List<Perfil> lista = entityManager.createNamedQuery("Perfil.buscarPorId", Perfil.class).setParameter("id", id).getResultList();
-        if (lista.isEmpty()) {
-            return Optional.absent();
-        } else {
-            return Optional.of(lista.get(0));
-        }
+        return repository.buscarPorId(id);
     }
-
 
 }
